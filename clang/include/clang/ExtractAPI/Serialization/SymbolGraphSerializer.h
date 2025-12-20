@@ -42,6 +42,8 @@ struct SymbolGraphSerializerOption {
   /// Do not include unnecessary whitespaces to save space.
   bool Compact = true;
   bool EmitSymbolLabelsForTesting = false;
+  /// Include symbols with a leading '_' (normally skipped).
+  bool IncludeUnderscored = false;
 };
 
 /// A representation of the contents of a given module symbol graph
@@ -100,6 +102,7 @@ private:
   const APIIgnoresList &IgnoresList;
 
   const bool EmitSymbolLabelsForTesting = false;
+  const bool IncludeUnderscored = false;
 
   const bool SkipSymbolsInCategoriesToExternalTypes = false;
 
@@ -273,10 +276,12 @@ public:
   SymbolGraphSerializer(const APISet &API, const APIIgnoresList &IgnoresList,
                         bool EmitSymbolLabelsForTesting = false,
                         bool ForceEmitToMainModule = false,
-                        bool SkipSymbolsInCategoriesToExternalTypes = false)
+                        bool SkipSymbolsInCategoriesToExternalTypes = false,
+                        bool IncludeUnderscored = false)
       : Base(API), ForceEmitToMainModule(ForceEmitToMainModule),
         IgnoresList(IgnoresList),
         EmitSymbolLabelsForTesting(EmitSymbolLabelsForTesting),
+        IncludeUnderscored(IncludeUnderscored),
         SkipSymbolsInCategoriesToExternalTypes(
             SkipSymbolsInCategoriesToExternalTypes) {}
 };

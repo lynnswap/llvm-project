@@ -673,9 +673,8 @@ bool SymbolGraphSerializer::shouldSkip(const APIRecord *Record) const {
   if (Record->Availability.isUnconditionallyUnavailable())
     return true;
 
-  // Filter out symbols prefixed with an underscored as they are understood to
-  // be symbols clients should not use.
-  if (Record->Name.starts_with("_"))
+  // Filter out leading-underscore symbols unless explicitly requested.
+  if (!IncludeUnderscored && Record->Name.starts_with("_"))
     return true;
 
   // Skip explicitly ignored symbols.
@@ -1045,7 +1044,8 @@ void SymbolGraphSerializer::serializeMainSymbolGraph(
   SymbolGraphSerializer Serializer(
       API, IgnoresList, Options.EmitSymbolLabelsForTesting,
       /*ForceEmitToMainModule=*/true,
-      /*SkipSymbolsInCategoriesToExternalTypes=*/true);
+      /*SkipSymbolsInCategoriesToExternalTypes=*/false,
+      Options.IncludeUnderscored);
 
   Serializer.traverseAPISet();
   Serializer.serializeGraphToStream(OS, Options, API.ProductName,
@@ -1060,7 +1060,10 @@ void SymbolGraphSerializer::serializeWithExtensionGraphs(
         CreateOutputStream,
     SymbolGraphSerializerOption Options) {
   SymbolGraphSerializer Serializer(API, IgnoresList,
-                                   Options.EmitSymbolLabelsForTesting);
+                                   Options.EmitSymbolLabelsForTesting,
+                                   /*ForceEmitToMainModule=*/false,
+                                   /*SkipSymbolsInCategoriesToExternalTypes=*/false,
+                                   Options.IncludeUnderscored);
   Serializer.traverseAPISet();
 
   Serializer.serializeGraphToStream(MainOutput, Options, API.ProductName,

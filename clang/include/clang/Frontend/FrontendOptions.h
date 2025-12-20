@@ -460,6 +460,10 @@ public:
   LLVM_PREFERRED_TYPE(bool)
   unsigned EmitPrettySymbolGraphs : 1;
 
+  /// Whether ExtractAPI should include symbols with a leading '_'.
+  LLVM_PREFERRED_TYPE(bool)
+  unsigned ExtractAPIIncludeUnderscored : 1;
+
   /// Whether to generate reduced BMI for C++20 named modules.
   LLVM_PREFERRED_TYPE(bool)
   unsigned GenReducedBMI : 1;
@@ -678,7 +682,8 @@ public:
         AllowPCMWithCompilerErrors(false), ModulesShareFileManager(true),
         EmitSymbolGraph(false), EmitExtensionSymbolGraphs(false),
         EmitSymbolGraphSymbolLabelsForTesting(false),
-        EmitPrettySymbolGraphs(false), GenReducedBMI(false),
+        EmitPrettySymbolGraphs(false), ExtractAPIIncludeUnderscored(false),
+        GenReducedBMI(false),
         UseClangIRPipeline(false), TimeTraceGranularity(500),
         TimeTraceVerbose(false) {}
 

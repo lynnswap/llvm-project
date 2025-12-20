@@ -1587,6 +1587,10 @@ def extract_api_ignores_EQ: CommaJoined<["--"], "extract-api-ignores=">,
   Visibility<[ClangOption, CC1Option]>,
     HelpText<"Comma separated list of files containing a new line separated list of API symbols to ignore when extracting API information.">,
     MarshallingInfoStringVector<FrontendOpts<"ExtractAPIIgnoresFileList">>;
+def extract_api_include_underscored : Flag<["--"], "extract-api-include-underscored">,
+  Visibility<[ClangOption, CC1Option]>,
+  HelpText<"Include symbols with a leading '_' when extracting API information.">,
+  MarshallingInfoFlag<FrontendOpts<"ExtractAPIIncludeUnderscored">>;
 def symbol_graph_dir_EQ: Joined<["--"], "symbol-graph-dir=">,
    Visibility<[ClangOption, CC1Option]>,
    HelpText<"Directory in which to emit symbol graphs.">,

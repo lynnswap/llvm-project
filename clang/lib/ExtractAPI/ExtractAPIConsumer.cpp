@@ -376,6 +376,8 @@ void ExtractAPIActionBase::ImplEndSourceFileAction(CompilerInstance &CI) {
   SerializationOptions.Compact = !CI.getFrontendOpts().EmitPrettySymbolGraphs;
   SerializationOptions.EmitSymbolLabelsForTesting =
       CI.getFrontendOpts().EmitSymbolGraphSymbolLabelsForTesting;
+  SerializationOptions.IncludeUnderscored =
+      CI.getFrontendOpts().ExtractAPIIncludeUnderscored;
 
   if (CI.getFrontendOpts().EmitExtensionSymbolGraphs) {
     auto ConstructOutputFile = [&CI](Twine BaseName) {

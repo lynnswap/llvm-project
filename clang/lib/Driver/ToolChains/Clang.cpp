@@ -5334,6 +5334,9 @@ void Clang::ConstructJob(Compilation &C, const JobAction &Job,
     if (Arg *ExtractAPIIgnoresFileArg =
             Args.getLastArg(options::OPT_extract_api_ignores_EQ))
       ExtractAPIIgnoresFileArg->render(Args, CmdArgs);
+    if (Arg *ExtractAPIIncludeUnderscored =
+            Args.getLastArg(options::OPT_extract_api_include_underscored))
+      ExtractAPIIncludeUnderscored->render(Args, CmdArgs);
     if (Arg *EmitExtensionSymbolGraphs =
             Args.getLastArg(options::OPT_emit_extension_symbol_graphs)) {
       if (!SymbolGraphDirArg)
